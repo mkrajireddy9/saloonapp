@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Halo Salon MVP"
+description = "A responsive salon consultation workspace with a customer intake flow, guided scan experience, visual hair report, hairstyle recommendations, and Hair Passport preview."
+version = "1.0.0"
+id = "artifacts/halo-salon-mvp"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18135
+
+[services.development]
+run = "pnpm --filter @workspace/halo-salon-mvp run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/halo-salon-mvp", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/halo-salon-mvp/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18135"
+BASE_PATH = "/"
